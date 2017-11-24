@@ -98,8 +98,8 @@ public class RetrofitFactory {
                 OkHttpClient.Builder builder = new OkHttpClient.Builder()
                         .cookieJar(cookieJar)
                         .cache(cache)
-                        .addInterceptor(cacheControlInterceptor)
-                        .addNetworkInterceptor(cacheControlInterceptor)
+                        .addInterceptor(cacheControlInterceptor)//有网策略
+                        .addNetworkInterceptor(cacheControlInterceptor)//无网策略
                         .connectTimeout(10, TimeUnit.SECONDS)
                         .readTimeout(15, TimeUnit.SECONDS)
                         .writeTimeout(15, TimeUnit.SECONDS)
