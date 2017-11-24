@@ -6,6 +6,8 @@ import android.app.Application;
 import android.content.Context;
 
 import com.blankj.utilcode.util.Utils;
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 
 public class MyApp extends Application {
 
@@ -20,7 +22,8 @@ public class MyApp extends Application {
         mContext = getApplicationContext();
         //初始化工具
         Utils.init(this);
-
+        //初始化可打印日志
+        Logger.addLogAdapter(new AndroidLogAdapter());
 
 
 

@@ -63,4 +63,8 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     compile 'com.squareup.okhttp3:okhttp:3.7.0'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    compile 'com.squareup.okhttp3:logging-interceptor:3.7.0'//拦截器
+    compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'//cookie
+    compile 'com.orhanobut:logger:2.1.1'//log
 }

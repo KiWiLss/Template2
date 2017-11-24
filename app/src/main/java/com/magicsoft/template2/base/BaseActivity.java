@@ -8,8 +8,7 @@ import android.support.annotation.Nullable;
 import android.view.WindowManager;
 
 import com.magicsoft.template2.manager.ActivityCollector;
-
-
+import com.magicsoft.template2.utils.general.TUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -18,7 +17,8 @@ import butterknife.ButterKnife;
 
 
 public abstract class BaseActivity<V, T extends BasePresenter<V>> extends RxAppCompatActivity{
-
+    public  String TAG = "MMM";
+    public  boolean isLog=true;
     public T mPresenter;
 
     @Override
@@ -41,10 +41,10 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends RxAppC
         setUpView();
     }
 
-    private void toast(){
-
-
+    public void toast(String msg){
+        TUtils.show(msg);
     }
+
 
     /**进入另一个界面
      * @param
