@@ -16,7 +16,7 @@ import org.greenrobot.eventbus.EventBus;
 import butterknife.ButterKnife;
 
 
-public abstract class BaseActivity<V, T extends BasePresenter<V>> extends RxAppCompatActivity{
+public abstract class BaseActivity<V, T extends BasePresenter<V>> extends RxAppCompatActivity {
     public  String TAG = "MMM";
     public  boolean isLog=true;
     public T mPresenter;
@@ -39,6 +39,8 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends RxAppC
         }
         ActivityCollector.getInstance().addActivity(this);
         setUpView();
+
+
     }
 
     public void toast(String msg){
