@@ -9,5 +9,8 @@ public interface N {
 
      String APP_CFG="http://app.zhongjianmall.com/api/UserInterface/GetAppConfig?";
 
+    public static String ZHURL="http://app.zhongjianmall.com/api/UserInterface/";
+
+    String ZH_PHONE="SendRegisterVerifyCode?phone=";
 
 }

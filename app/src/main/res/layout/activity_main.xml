@@ -20,8 +20,18 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-
+        <Button
+            android:id="@+id/btn_main_smms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="testmvc"
+            />
+        <Button
+            android:id="@+id/btn_main_smms2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="smms"
+            />
 
     </LinearLayout>
 

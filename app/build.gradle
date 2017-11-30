@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "26.0.1"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.magicsoft.template2"
         minSdkVersion 15
@@ -67,4 +67,7 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.7.0'//拦截器
     compile 'com.github.franmontiel:PersistentCookieJar:v1.0.1'//cookie
     compile 'com.orhanobut:logger:2.1.1'//log
+
+    compile 'com.github.KiWiLss:PopupWindowUtils:1.2.7'
+
 }

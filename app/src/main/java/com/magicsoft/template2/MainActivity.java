@@ -1,24 +1,19 @@
 package com.magicsoft.template2;
 
-import com.alibaba.fastjson.JSON;
-import com.blankj.utilcode.util.LogUtils;
-import com.magicsoft.template2.api.Api;
+import android.view.View;
+
 import com.magicsoft.template2.base.BaseActivity;
-import com.magicsoft.template2.config.N;
 import com.magicsoft.template2.contract.MainContract;
-import com.magicsoft.template2.model.demo.MessageList;
-import com.magicsoft.template2.model.demo.TestBean;
 import com.magicsoft.template2.present.MainPresent;
-import com.magicsoft.template2.utils.general.LUtils;
-import com.magicsoft.template2.utils.http.RxSubUtils;
-import com.magicsoft.template2.utils.http.RxUtils;
+import com.magicsoft.template2.ui.TestMainActivity;
+import com.magicsoft.template2.ui.smms.SmmsActivity;
 
-import java.util.Map;
+import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity<MainContract.View,MainContract.Present> implements MainContract.View{
+public class MainActivity extends BaseActivity<MainContract.View, MainContract.Present> implements MainContract.View {
     @Override
     protected void setUpView() {
-        LUtils.i("9999999999999");
+       /* LUtils.i("9999999999999");
         LUtils.e("&&&&&&&&&&&&&&&&");
         LogUtils.e("MMM","$$$$$$$$$$");
         LogUtils.eTag("MMM","&&&&&&&&&");
@@ -57,7 +52,7 @@ public class MainActivity extends BaseActivity<MainContract.View,MainContract.Pr
                     protected void _onNext(TestBean testBean) {
                         LUtils.ee(testBean);
                     }
-                });
+                });*/
 
     }
 
@@ -70,4 +65,20 @@ public class MainActivity extends BaseActivity<MainContract.View,MainContract.Pr
     public int getLayoutId() {
         return R.layout.activity_main;
     }
+
+
+    @OnClick({R.id.btn_main_smms, R.id.btn_main_smms2})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.btn_main_smms:
+                gotoActivity(TestMainActivity.class);
+                break;
+            case R.id.btn_main_smms2:
+                gotoActivity(SmmsActivity.class);
+                break;
+        }
+    }
+
+
+
 }

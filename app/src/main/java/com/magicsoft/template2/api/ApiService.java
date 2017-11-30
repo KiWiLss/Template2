@@ -42,6 +42,12 @@ public interface ApiService {
             , @Query("member.id")String id
             , @Query("page")String page, @Query("size")String size);
 
+
+    @GET
+    Flowable<AppBack2<Map<String,Object>>> getUrl(@Url String url);
+
     @GET
     Flowable<AppBack2<TestBean>> getUrl2(@Url String url);
+
+
 }
