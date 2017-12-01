@@ -147,6 +147,7 @@ public class SmmsActivity extends BaseActivity{
                 startGetCWCode();
                 break;
             case R.id.btn_smms_pause:
+                //mCdt.start();
                 mCdt.cancel();
                 break;
         }
