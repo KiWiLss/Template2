@@ -9,6 +9,7 @@ import com.magicsoft.template2.model.demo.TestBean;
 import java.util.Map;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -49,5 +50,7 @@ public interface ApiService {
     @GET
     Flowable<AppBack2<TestBean>> getUrl2(@Url String url);
 
-
+    @POST
+    //@FormUrlEncoded
+    Observable<Object> sendSMS(@Url String url);
 }

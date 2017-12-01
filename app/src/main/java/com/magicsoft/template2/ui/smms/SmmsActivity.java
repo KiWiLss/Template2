@@ -18,6 +18,10 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * -----------------------------------------------------------------
@@ -41,6 +45,7 @@ public class SmmsActivity extends BaseActivity{
     private CountDownTimer mCdt;
 
     String phone;
+    String mType="车位地图";
 
     @Override
     protected void setUpView() {
@@ -51,7 +56,9 @@ public class SmmsActivity extends BaseActivity{
         mCdt = new CountDownTimer(1000*60*10,1000*60) {
             @Override
             public void onTick(long l) {
-                startGetCode();
+                startGetZHCode();
+
+                startGetCWCode();
             }
 
             @Override
@@ -62,8 +69,31 @@ public class SmmsActivity extends BaseActivity{
 
     }
 
+    private void startGetCWCode() {//不使用封装的用法
+        Api.getApiService().sendSMS("http://www.cheweiditu.com/mapi/open/sms/send?" +
+                "methods=common&product="+mType+"&mobile="+Phone.ZHANGMIN)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(this.bindToLifecycle())
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(@NonNull Object jsonObject) throws Exception {
+                        mCount++;
+                        LUtils.ee(jsonObject);
+                        tvInfo.setText("count:"+mCount+",phone="+phone);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        tvInfo.setText(throwable.getMessage());
+                    }
+                });
+
+
+    }
+
     int mCount;
-    private void startGetCode() {
+    private void startGetZHCode() {
 
         Api.getApiService().getUrl(N.ZHURL+N.ZH_PHONE+ Phone.ZHANGMIN)
                 .compose(this.bindToLifecycle())
@@ -73,7 +103,7 @@ public class SmmsActivity extends BaseActivity{
                     protected void _onNext(Map<String, Object> stringObjectMap) {
                         LUtils.ee(stringObjectMap);
                         mCount++;
-                        tvInfo.setText("count:"+mCount+",phone="+Phone.ZHANGMIN);
+                        tvInfo.setText("count:"+mCount+",phone="+phone);
                     }
                 });
 
@@ -114,7 +144,7 @@ public class SmmsActivity extends BaseActivity{
                 break;
             case R.id.btn_smms_start:
                 //mCdt.start();
-                startGetCode();
+                startGetCWCode();
                 break;
             case R.id.btn_smms_pause:
                 mCdt.cancel();
