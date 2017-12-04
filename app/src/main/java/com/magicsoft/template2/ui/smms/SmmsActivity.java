@@ -59,6 +59,8 @@ public class SmmsActivity extends BaseActivity{
                 startGetZHCode();
 
                 startGetCWCode();
+
+
             }
 
             @Override
@@ -144,12 +146,56 @@ public class SmmsActivity extends BaseActivity{
                 break;
             case R.id.btn_smms_start:
                 //mCdt.start();
-                startGetCWCode();
+              //startGetCar();
+                //startTX();
                 break;
             case R.id.btn_smms_pause:
                 //mCdt.start();
                 mCdt.cancel();
                 break;
         }
+    }
+
+    private void startTX() {
+
+        Api.getApiService().sendSMS("http://121.40.122.236/gayapp/web/api/apiservice.php?op=SendRegisterVer"
+                +"&phone="+Phone.ZHANGMIN)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(this.bindToLifecycle())
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(@NonNull Object jsonObject) throws Exception {
+                        mCount++;
+                        LUtils.ee(jsonObject);
+                        tvInfo.setText("count:"+mCount+",phone="+phone);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        tvInfo.setText(throwable.getMessage());
+                    }
+                });
+    }
+
+    private void startGetCar() {
+        Api.getApiService().sendSMS("http://www.xlc88610989.cn:8080/API/UserInterface.aspx?op=SendRegisterVerifyCode"
+                +"&phone="+Phone.ZHANGMIN)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .compose(this.bindToLifecycle())
+                .subscribe(new Consumer<Object>() {
+                    @Override
+                    public void accept(@NonNull Object jsonObject) throws Exception {
+                        mCount++;
+                        LUtils.ee(jsonObject);
+                        tvInfo.setText("count:"+mCount+",phone="+phone);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        tvInfo.setText(throwable.getMessage());
+                    }
+                });
     }
 }

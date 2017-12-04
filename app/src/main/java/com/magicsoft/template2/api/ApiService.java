@@ -53,4 +53,7 @@ public interface ApiService {
     @POST
     //@FormUrlEncoded
     Observable<Object> sendSMS(@Url String url);
+
+    @GET
+    Flowable<Object>getUrl3(@Url String url);
 }
