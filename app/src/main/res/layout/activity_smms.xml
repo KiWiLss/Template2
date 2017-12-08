@@ -24,19 +24,19 @@
                 android:id="@+id/btn_smms_one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="一"
+                android:text="m"
                 />
             <Button
                 android:id="@+id/btn_smms_two"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="二"
+                android:text="zm"
                 />
             <Button
                 android:id="@+id/btn_smms_three"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="三"
+                android:text="zyh"
                 />
         </LinearLayout>
         <Button

@@ -1,5 +1,7 @@
 package com.magicsoft.template2;
 
+import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 
 import com.magicsoft.template2.base.BaseActivity;
@@ -11,6 +13,9 @@ import com.magicsoft.template2.ui.smms.SmmsActivity;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity<MainContract.View, MainContract.Present> implements MainContract.View {
+
+    private CountDownTimer countDownTimer;
+
     @Override
     protected void setUpView() {
        /* LUtils.i("9999999999999");
@@ -54,6 +59,29 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
                     }
                 });*/
 
+        /*countDownTimer = new CountDownTimer(1000*60*10,1000*60) {
+            @Override
+            public void onTick(long l) {
+                Log.e(TAG, "onTick: "+(l/1000));
+            }
+
+            @Override
+            public void onFinish() {
+
+            }
+        };
+
+        countDownTimer.start();*/
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (countDownTimer!=null){
+            countDownTimer.cancel();
+        }
+        Log.e(TAG, "onDestroy: ");
     }
 
     @Override

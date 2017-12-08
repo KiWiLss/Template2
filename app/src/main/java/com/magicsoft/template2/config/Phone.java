@@ -17,7 +17,7 @@ package com.magicsoft.template2.config;
  */
 
 public class Phone {
-    public static final String ZHANGMIN="18657194104";
-    public static final String MEI="";
-    public static final String ZHANGYH="";
+    public static final String ZHANGMIN="13486157968";
+    public static final String MEI="15888295609";
+    public static final String ZHANGYH="15657580878";
 }

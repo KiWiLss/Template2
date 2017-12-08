@@ -44,7 +44,6 @@ public class SmmsActivity extends BaseActivity{
     TextView tvInfo;
     private CountDownTimer mCdt;
 
-    String phone;
     String mType="车位地图";
 
     @Override
@@ -53,27 +52,41 @@ public class SmmsActivity extends BaseActivity{
     }
 
     private void initTimer() {
-        mCdt = new CountDownTimer(1000*60*10,1000*60) {
+        mCdt = new CountDownTimer(1000*60*40,1000*60) {
             @Override
             public void onTick(long l) {
-                startGetZHCode();
 
-                startGetCWCode();
-
-
+                int count = mCount % 4;
+                switch (count) {
+                    case 0:
+                        startGetZHCode1();
+                        break;
+                    case 1:
+                        startGetCWCode2();
+                        break;
+                    case 2:
+                        startTX3();
+                        break;
+                    case 3:
+                        startGetCar4();
+                        break;
+                }
+                tvInfo.setText("###"+"all="+mCount+"recycler="+mRecycCount
+                +"phone="+mPhone);
             }
+
 
             @Override
             public void onFinish() {
-                tvInfo.setText("end**");
+                tvInfo.setText("end**"+"all="+mCount+"recycler="+mRecycCount);
             }
         };
 
     }
 
-    private void startGetCWCode() {//不使用封装的用法
+    private void startGetCWCode2() {//不使用封装的用法
         Api.getApiService().sendSMS("http://www.cheweiditu.com/mapi/open/sms/send?" +
-                "methods=common&product="+mType+"&mobile="+Phone.ZHANGMIN)
+                "methods=common&product="+mType+"&mobile="+mPhone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(this.bindToLifecycle())
@@ -82,7 +95,7 @@ public class SmmsActivity extends BaseActivity{
                     public void accept(@NonNull Object jsonObject) throws Exception {
                         mCount++;
                         LUtils.ee(jsonObject);
-                        tvInfo.setText("count:"+mCount+",phone="+phone);
+                        //tvInfo.setText("count:"+mCount+",phone="+phone);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -94,10 +107,12 @@ public class SmmsActivity extends BaseActivity{
 
     }
 
-    int mCount;
-    private void startGetZHCode() {
+    int mCount;//总的次数
+    int mRecycCount;//循环次数
+    String mPhone= Phone.MEI;
+    private void startGetZHCode1() {
 
-        Api.getApiService().getUrl(N.ZHURL+N.ZH_PHONE+ Phone.ZHANGMIN)
+        Api.getApiService().getUrl(N.ZHURL+N.ZH_PHONE+ mPhone)
                 .compose(this.bindToLifecycle())
                 .compose(RxUtils.handleResult())
                 .subscribe(new RxSubUtils<Map<String, Object>>() {
@@ -105,7 +120,7 @@ public class SmmsActivity extends BaseActivity{
                     protected void _onNext(Map<String, Object> stringObjectMap) {
                         LUtils.ee(stringObjectMap);
                         mCount++;
-                        tvInfo.setText("count:"+mCount+",phone="+phone);
+                        //tvInfo.setText("count:"+mCount+",phone="+phone);
                     }
                 });
 
@@ -139,27 +154,27 @@ public class SmmsActivity extends BaseActivity{
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_smms_one:
+                mPhone=Phone.MEI;
                 break;
             case R.id.btn_smms_two:
+                mPhone=Phone.ZHANGMIN;
                 break;
             case R.id.btn_smms_three:
+                mPhone=Phone.ZHANGYH;
                 break;
             case R.id.btn_smms_start:
-                //mCdt.start();
-              //startGetCar();
-                //startTX();
+                mCdt.start();
                 break;
             case R.id.btn_smms_pause:
-                //mCdt.start();
                 mCdt.cancel();
                 break;
         }
     }
 
-    private void startTX() {
+    private void startTX3() {
 
         Api.getApiService().sendSMS("http://121.40.122.236/gayapp/web/api/apiservice.php?op=SendRegisterVer"
-                +"&phone="+Phone.ZHANGMIN)
+                +"&phone="+mPhone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(this.bindToLifecycle())
@@ -168,7 +183,7 @@ public class SmmsActivity extends BaseActivity{
                     public void accept(@NonNull Object jsonObject) throws Exception {
                         mCount++;
                         LUtils.ee(jsonObject);
-                        tvInfo.setText("count:"+mCount+",phone="+phone);
+                        //tvInfo.setText("count:"+mCount+",phone="+phone);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
@@ -178,9 +193,9 @@ public class SmmsActivity extends BaseActivity{
                 });
     }
 
-    private void startGetCar() {
+    private void startGetCar4() {
         Api.getApiService().sendSMS("http://www.xlc88610989.cn:8080/API/UserInterface.aspx?op=SendRegisterVerifyCode"
-                +"&phone="+Phone.ZHANGMIN)
+                +"&phone="+mPhone)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .compose(this.bindToLifecycle())
@@ -189,7 +204,7 @@ public class SmmsActivity extends BaseActivity{
                     public void accept(@NonNull Object jsonObject) throws Exception {
                         mCount++;
                         LUtils.ee(jsonObject);
-                        tvInfo.setText("count:"+mCount+",phone="+phone);
+                        //tvInfo.setText("count:"+mCount+",phone="+phone);
                     }
                 }, new Consumer<Throwable>() {
                     @Override
