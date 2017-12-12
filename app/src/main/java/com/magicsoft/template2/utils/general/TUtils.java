@@ -1,126 +1,79 @@
 package com.magicsoft.template2.utils.general;
 
 import android.content.Context;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import com.magicsoft.template2.MyApp;
-
-/**
- * @Name: TUtils
- * @Author: windingKIWILSS
- * @Version: V100R001C01
- * @Create: 2017/11/23 17:41
- * @Changes (from 2017/11/23)
- * @Email: kiwilss@163.com
- * -----------------------------------------------------------------
- * @ 2017/11/23 : Create TUtils.java (winding);
- * -----------------------------------------------------------------
- * @description: 吐司工具
- */
+import com.magicsoft.template2.R;
 
 
 public class TUtils {
-    static Toast toast;
+    public static final String TAG="MMM";
+    private static Toast mToast;
+    private volatile static TUtils instance;
+    private static CharSequence mText;
+    private TUtils(Context context) {
+        View v = LayoutInflater.from(context).inflate(R.layout.eplay_toast, null);
+        if (mToast==null){
+            mToast = new Toast(context);
+            mToast.setDuration(Toast.LENGTH_SHORT);
+            mToast.setView(v);
+        }
+    }
 
-    private TUtils() {
-        throw new AssertionError();
+    public TUtils setText(CharSequence text,int type){
+        if (mToast!=null&& !TextUtils.isEmpty(text)){
+            View view = mToast.getView();
+            TextView tv = view.findViewById(R.id.tv_toast_text);
+            tv.setText(text);
+            //设置图片的类型
+            ImageView imgIcon = view.findViewById(R.id.img_toast_icon);
+
+
+
+        }
+        return this;
     }
 
 
-    /**短时间吐司资源文字
-     * @param resource
-     */
-    public static void show( int resource) {
-        show(MyApp.getContext(), MyApp.getContext().getResources().getText(resource), Toast.LENGTH_SHORT,0);
-    }
-
-    /**短时间吐司文字
-     * @param
-     */
-    public static void show( String msg) {
-        show(MyApp.getContext(), msg, Toast.LENGTH_SHORT,0);
-    }
-    /**短时间吐司文字,设置位置
-     * @param
-     */
-    public static void show( String msg,int gravity) {
-        show(MyApp.getContext(), msg, Toast.LENGTH_SHORT,gravity);
-    }
 
 
-    /**短时间吐司资源文字,自定义显示时间
-     * @param resource
-     */
-    public static void showCustom( int resource,int customTime) {
-        show(MyApp.getContext(), MyApp.getContext().getResources().getText(resource), customTime,0);
-    }
-    /**短时间吐司资源文字,可设置显示位置
-     * @param resource
-     */
-    public static void show( int resource,int gravity) {
-        show(MyApp.getContext(), MyApp.getContext().getResources().getText(resource), Toast.LENGTH_SHORT,gravity);
-    }
 
-    /**长时间吐司资源文字
-     * @param resource
-     */
-    public static void showL(int resource,int gravity) {
-        show(MyApp.getContext(), MyApp.getContext().getResources().getText(resource), Toast.LENGTH_LONG,gravity);
-    }
-
-    /**长时间吐司文字
-     * @param resource
-     */
-    public static void showL(String resource) {
-        show(MyApp.getContext(),resource, Toast.LENGTH_LONG,0);
-    }
-
-    /**长时间吐司文字,设置位置
-     * @param resource
-     */
-    public static void showL(String resource,int gravity) {
-        show(MyApp.getContext(),resource, Toast.LENGTH_LONG,gravity);
-    }
-
-    /**长时间吐司资源文字,自定义显示时间
-     * @param resource
-     */
-    public static void showLCustom(int resource,int customTime) {
-        show(MyApp.getContext(), MyApp.getContext().getResources().getText(resource), customTime,0);
-    }
-    /**长时间吐司资源文字
-     * @param resource
-     */
-    public static void showL(int resource) {
-        show(MyApp.getContext(), MyApp.getContext().getResources().getText(resource), Toast.LENGTH_LONG,0);
-    }
-
-    public static void show(Context paramContext, CharSequence paramCharSequence, int paramInt, int gravity) {
-        if (toast != null) {
-            toast.setText(paramCharSequence);
-            toast.setDuration(paramInt);
-            if (gravity!=0){
-                toast.setGravity(gravity,0,0);
+    public static TUtils makeText(Context context) {
+        if (instance==null){
+            synchronized (TUtils.class){
+                if (instance==null) {
+                    return new TUtils(context);
+                }
             }
-            toast.show();
-            return;
         }
-        toast = Toast.makeText(paramContext, paramCharSequence, paramInt);
-        if (gravity!=0){
-            toast.setGravity(gravity,0,0);
-        }
-        toast.show();
+       return instance;
     }
 
-    public static void setGravity(int gravity, int xOffset, int yOffset){
-        if (toast != null) {
-            toast.setGravity(gravity, xOffset, yOffset);
+
+
+    public void show() {
+        if (mToast != null) {
+            mToast.show();
+        }
+    }
+    public TUtils setGravity(int gravity, int xOffset, int yOffset) {
+        if (mToast != null) {
+            mToast.setGravity(gravity, xOffset, yOffset);
+        }
+        return this;
+    }
+
+    public void cancel(){
+        if (mToast!=null){
+            mToast.cancel();
         }
     }
 
-    public static void toastCancle() {
-        if (toast != null)
-            toast.cancel();
-    }
+
 
 }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
 import butterknife.ButterKnife;
@@ -30,6 +31,9 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends RxFrag
         return mView;
     }
 
+    public void toast(String msg){
+        ToastUtils.showShort(msg);
+    }
     /**进入另一个界面
      * @param clz
      */

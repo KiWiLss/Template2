@@ -7,8 +7,8 @@ import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.view.WindowManager;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.magicsoft.template2.manager.ActivityCollector;
-import com.magicsoft.template2.utils.general.TUtils;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,7 +44,7 @@ public abstract class BaseActivity<V, T extends BasePresenter<V>> extends RxAppC
     }
 
     public void toast(String msg){
-        TUtils.show(msg);
+        ToastUtils.showShort(msg);
     }
 
 
