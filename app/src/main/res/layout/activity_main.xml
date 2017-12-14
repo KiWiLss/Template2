@@ -21,6 +21,12 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
+            android:id="@+id/btn_main_test"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="测试"
+            />
+        <Button
             android:id="@+id/btn_main_smms"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

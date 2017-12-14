@@ -122,7 +122,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
     }
 
 
-    @OnClick({R.id.btn_main_smms, R.id.btn_main_smms2})
+    @OnClick({R.id.btn_main_smms, R.id.btn_main_smms2,R.id.btn_main_test})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_main_smms:
@@ -131,9 +131,18 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
             case R.id.btn_main_smms2:
                 gotoActivity(SmmsActivity.class);
                 break;
+            case R.id.btn_main_test://测试网络数据
+                mPresenter.getTestData();
+                break;
         }
     }
 
-
-
+    /**
+     * 点击获取测试数据
+     * @param messageList
+     */
+    @Override
+    public void getTestData(MessageList messageList) {
+        LUtils.ee(messageList);
+    }
 }

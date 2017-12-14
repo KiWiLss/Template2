@@ -2,6 +2,7 @@ package com.magicsoft.template2.contract;
 
 import com.magicsoft.template2.base.BasePresenter;
 import com.magicsoft.template2.base.BaseView;
+import com.magicsoft.template2.model.demo.MessageList;
 
 /**
  * -----------------------------------------------------------------
@@ -22,9 +23,9 @@ import com.magicsoft.template2.base.BaseView;
 public interface MainContract {
 
     interface View extends BaseView{
-
+        void getTestData(MessageList messageList);
     }
     abstract class Present extends BasePresenter<View>{
-
+        public abstract void getTestData();
     }
 }
