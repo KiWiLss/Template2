@@ -91,7 +91,7 @@ public class RxUtils {
                         if (tBaseBean.isOk()){
                             return createData(tBaseBean.getData());
                         }
-                        return Flowable.error(new ServerException(tBaseBean.getMsg()));
+                        return Flowable.error(new ServerException("未知异常"));
                     }
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
             }

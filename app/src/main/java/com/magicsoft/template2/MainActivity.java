@@ -28,7 +28,7 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
 
 
-        Api.getApiService().getMessageList("ef56e5cc-3d87-42ae-aeb4-50c958b9126e"
+        Api.getApiService().getMessageList("ef56e5cc-3d87-42ae-aeb4-50c958b9126"
                 ,"mj67887u","0","10")
                 .compose(RxUtils.handleResult2())
                 .subscribe(new RxSubUtils<MessageList>(this) {
@@ -38,7 +38,11 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
                         LUtils.e("$$$"+ JSON.toJSON(messageList));
                     }
 
-
+                    @Override
+                    protected void _onError(String err) {
+                        //super._onError(err);
+                        LUtils.e(err);
+                    }
                 });
 
        /* LUtils.i("9999999999999");

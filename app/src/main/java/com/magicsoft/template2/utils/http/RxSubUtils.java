@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import com.blankj.utilcode.util.NetworkUtils;
 import com.blankj.utilcode.util.ToastUtils;
 import com.magicsoft.template2.R;
-import com.magicsoft.template2.utils.general.LUtils;
 import com.xiasuhuei321.loadingdialog.view.LoadingDialog;
 
 import java.lang.ref.WeakReference;
@@ -135,7 +134,6 @@ public abstract class RxSubUtils<T> extends DisposableSubscriber<T> {
     protected void _onError(String err){
         if (!TextUtils.isEmpty(err)) {
             ToastUtils.showShort(err);
-            LUtils.e(err);
         }
     }
 
