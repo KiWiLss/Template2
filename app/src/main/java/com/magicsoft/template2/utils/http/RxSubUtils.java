@@ -120,6 +120,9 @@ public abstract class RxSubUtils<T> extends DisposableSubscriber<T> {
 
     private void initDialog() {
         Context context = mContext.get();
+        if (context==null){
+            return;
+        }
         loadingDialog = new LoadingDialog(context);
         loadingDialog.setLoadingText(msg)
                 .setInterceptBack(false)
