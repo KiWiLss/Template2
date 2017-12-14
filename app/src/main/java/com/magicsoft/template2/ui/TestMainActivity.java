@@ -34,7 +34,7 @@ public class TestMainActivity extends BaseActivity {
         Api.getApiService().getUrl2(N.APP_CFG)
                 .compose(this.bindToLifecycle())
         .compose(RxUtils.handleResult())
-        .subscribe(new RxSubUtils<TestBean>() {
+        .subscribe(new RxSubUtils<TestBean>(this) {
             @Override
             protected void _onNext(TestBean testBean) {
                 LUtils.ee(testBean);

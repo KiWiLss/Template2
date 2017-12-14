@@ -4,11 +4,17 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
+import com.magicsoft.template2.api.Api;
 import com.magicsoft.template2.base.BaseActivity;
 import com.magicsoft.template2.contract.MainContract;
+import com.magicsoft.template2.model.demo.MessageList;
 import com.magicsoft.template2.present.MainPresent;
 import com.magicsoft.template2.ui.TestMainActivity;
 import com.magicsoft.template2.ui.smms.SmmsActivity;
+import com.magicsoft.template2.utils.general.LUtils;
+import com.magicsoft.template2.utils.http.RxSubUtils;
+import com.magicsoft.template2.utils.http.RxUtils;
 
 import butterknife.OnClick;
 
@@ -18,6 +24,23 @@ public class MainActivity extends BaseActivity<MainContract.View, MainContract.P
 
     @Override
     protected void setUpView() {
+
+
+
+
+        Api.getApiService().getMessageList("ef56e5cc-3d87-42ae-aeb4-50c958b9126e"
+                ,"mj67887u","0","10")
+                .compose(RxUtils.handleResult2())
+                .subscribe(new RxSubUtils<MessageList>(this) {
+                    @Override
+                    protected void _onNext(MessageList messageList) {
+                        LUtils.ee(messageList);
+                        LUtils.e("$$$"+ JSON.toJSON(messageList));
+                    }
+
+
+                });
+
        /* LUtils.i("9999999999999");
         LUtils.e("&&&&&&&&&&&&&&&&");
         LogUtils.e("MMM","$$$$$$$$$$");

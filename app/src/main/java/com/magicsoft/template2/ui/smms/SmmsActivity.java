@@ -115,7 +115,7 @@ public class SmmsActivity extends BaseActivity{
         Api.getApiService().getUrl(N.ZHURL+N.ZH_PHONE+ mPhone)
                 .compose(this.bindToLifecycle())
                 .compose(RxUtils.handleResult())
-                .subscribe(new RxSubUtils<Map<String, Object>>() {
+                .subscribe(new RxSubUtils<Map<String, Object>>(this) {
                     @Override
                     protected void _onNext(Map<String, Object> stringObjectMap) {
                         LUtils.ee(stringObjectMap);

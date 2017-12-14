@@ -11,11 +11,12 @@ import android.widget.Toast;
 import com.magicsoft.template2.R;
 
 
-public class TUtils {
+public class TUtils {//自定义类型吐司
     public static final String TAG="MMM";
     private static Toast mToast;
     private volatile static TUtils instance;
-    private static CharSequence mText;
+
+
     private TUtils(Context context) {
         View v = LayoutInflater.from(context).inflate(R.layout.eplay_toast, null);
         if (mToast==null){
@@ -33,14 +34,9 @@ public class TUtils {
             //设置图片的类型
             ImageView imgIcon = view.findViewById(R.id.img_toast_icon);
 
-
-
         }
         return this;
     }
-
-
-
 
 
     public static TUtils makeText(Context context) {
@@ -53,7 +49,6 @@ public class TUtils {
         }
        return instance;
     }
-
 
 
     public void show() {

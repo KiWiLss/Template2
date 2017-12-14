@@ -69,5 +69,5 @@ dependencies {
     compile 'com.orhanobut:logger:2.1.1'//log
 
     compile 'com.github.KiWiLss:PopupWindowUtils:1.2.7'
-
+    compile 'com.github.KiWiLss:LoadingDialog-master:0.0.1'
 }

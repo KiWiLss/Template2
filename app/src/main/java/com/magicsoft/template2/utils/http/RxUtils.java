@@ -3,6 +3,7 @@ package com.magicsoft.template2.utils.http;
 
 import com.magicsoft.template2.model.AppBack2;
 import com.magicsoft.template2.model.HttpResult;
+import com.magicsoft.template2.utils.general.LUtils;
 
 import org.reactivestreams.Publisher;
 
@@ -63,14 +64,11 @@ public class RxUtils {
                 return flowable.flatMap(new Function<AppBack2<T>, Publisher<T>>() {
                     @Override
                     public Publisher<T> apply(@NonNull AppBack2<T> tBaseBean) throws Exception {
-//                        if (tBaseBean.isError()){
-//                            return createData(tBaseBean.getData());
-//                        }else{
-//                            return Flowable.error(new ServerException("服务器返回错误"));
-//                        }
-//                        Log.e("MMM", "apply: "+tBaseBean.getStatus());
-//                        Log.e("MMM", "apply: "+tBaseBean.getResult());
-                        return createData(tBaseBean.getResult());
+                        LUtils.e(tBaseBean.getStatus());
+                        if (tBaseBean.isSuccess()){
+                            return createData(tBaseBean.getResult());
+                        }
+                        return Flowable.error(new ServerException("返回服务器返回的错误信息"));
                     }
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
             }
@@ -89,14 +87,11 @@ public class RxUtils {
                 return flowable.flatMap(new Function<HttpResult<T>, Publisher<T>>() {
                     @Override
                     public Publisher<T> apply(@NonNull HttpResult<T> tBaseBean) throws Exception {
-//                        if (tBaseBean.isError()){
-//                            return createData(tBaseBean.getData());
-//                        }else{
-//                            return Flowable.error(new ServerException("服务器返回错误"));
-//                        }
-//                        Log.e("MMM", "apply: "+tBaseBean.getStatus());
-//                        Log.e("MMM", "apply: "+tBaseBean.getResult());
-                        return createData(tBaseBean.getData());
+
+                        if (tBaseBean.isOk()){
+                            return createData(tBaseBean.getData());
+                        }
+                        return Flowable.error(new ServerException(tBaseBean.getMsg()));
                     }
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
             }
@@ -115,7 +110,6 @@ public class RxUtils {
             @Override
             public void subscribe(@NonNull FlowableEmitter<T> flowableEmitter) throws Exception {
                 try {
-                    //Log.e("MMM", "subscribe: "+ JSON.toJSONString(data));
                     flowableEmitter.onNext(data);
                     flowableEmitter.onComplete();
                 }catch (Exception e){
@@ -125,13 +119,13 @@ public class RxUtils {
         }, BackpressureStrategy.BUFFER);
     }
 
-    /**
+   /* *//**
      * 自定义 服务器返回异常
-     */
+     *//*
     public static class ServerException extends Throwable {
         public ServerException(String msg) {
         }
-    }
+    }*/
 
 
 }

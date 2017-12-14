@@ -15,6 +15,10 @@ public class AppBack2<T> implements Serializable {
     private String hasNext; //是否有下一页
     private T result;
 
+    public  boolean isSuccess(){
+        return status==0;
+    }
+
     public int getStatus() {
         return status;
     }
